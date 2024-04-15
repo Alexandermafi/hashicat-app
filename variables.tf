@@ -1,52 +1,96 @@
 # Copyright (c) HashiCorp, Inc.
 
-##############################################################################
-# Variables File
-#
-# Here is where we store the default values for all the variables used in our
-# Terraform code. If you create a variable with no default, the user will be
-# prompted to enter it (or define it via config file or command line flags.)
+variable "tfc_organization" {
+  type = string
+}
+
+variable "tfc_workspace" {
+  type    = string
+  default = "hashicat-aws"
+}
+
+variable "tfc_workspace_tags" {
+  type    = list(any)
+  default = ["hashicat", "aws"]
+}
+
+variable "instruqt_aws_access_key_id" {
+  type      = string
+  sensitive = true
+}
+
+variable "instruqt_aws_secret_access_key" {
+  type      = string
+  sensitive = true
+}
 
 variable "prefix" {
-  description = "This prefix will be included in the name of most resources."
+  type = string
 }
 
 variable "region" {
-  description = "The region where the resources are created."
-  default     = "us-east-1"
+  type = string
 }
 
-variable "address_space" {
-  description = "The address space that is used by the virtual network. You can supply more than one address space. Changing this forces a new resource to be created."
-  default     = "10.0.0.0/16"
+variable "admins" {
+  type = list(string)
+  default = [
+    "workshops+lars@hashicorp.com"
+  ]
 }
 
-variable "subnet_prefix" {
-  description = "The address prefix to use for the subnet."
-  default     = "10.0.10.0/24"
+variable "developers" {
+  type = list(string)
+  default = [
+    "workshops+aisha@hashicorp.com"
+  ]
 }
 
-variable "instance_type" {
-  description = "Specifies the AWS instance type."
-  default     = "t2.micro"
+variable "managers" {
+  type = list(string)
+  default = [
+    "workshops+hiro@hashicorp.com"
+  ]
 }
 
-variable "admin_username" {
-  description = "Administrator user name for mysql"
-  default     = "hashicorp"
+variable "a" {
+  default = [
+    {
+      name  = "demo-lars"
+      email = "workshops+lars@hashicorp.com"
+      team  = "admin"
+    },
+    {
+      name  = "demo-aisha"
+      email = "workshops+aisha@hashicorp.com"
+      team  = "developers"
+    },
+    {
+      name  = "demo-hiro"
+      email = "workshops+hiro@hashicorp.com"
+      team  = "managers"
+    }
+  ]
 }
 
-variable "height" {
-  default     = "400"
-  description = "Image height in pixels."
+variable "oauth_connection_name" {
+  type    = string
+  default = "HashiCat Workshop"
 }
 
-variable "width" {
-  default     = "600"
-  description = "Image width in pixels."
+variable "github_owner" {
+  type = string
 }
 
-variable "placeholder" {
-  default     = "placekitten.com"
-  description = "Image-as-a-service URL. Some other fun ones to try are fillmurray.com, placecage.com, placebeard.it, loremflickr.com, baconmockup.com, placeimg.com, placebear.com, placeskull.com, stevensegallery.com, placedog.net"
+variable "github_repo" {
+  type = string
+}
+
+variable "github_token" {
+  type = string
+}
+
+variable "module_repo" {
+  type    = string
+  default = "terraform-aws-s3-bucket"
 }
